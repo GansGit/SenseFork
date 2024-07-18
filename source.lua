@@ -170,6 +170,7 @@ function EspObject:Construct()
 			name = self:_create("Text", { Text = self.player.DisplayName, Center = true, Visible = false }),
 			distance = self:_create("Text", { Center = true, Visible = false }),
 			weapon = self:_create("Text", { Center = true, Visible = false }),
+            headdot = self:_create("Circle", {Radius = 5, Visible = false})
 		},
 		hidden = {
 			arrowOutline = self:_create("Triangle", { Thickness = 3, Visible = false }),
@@ -370,6 +371,15 @@ function EspObject:Render()
 		tracerOutline.To = tracer.To;
 		tracerOutline.From = tracer.From;
 	end
+
+
+    visible.headdot.Visible = enabled and onScreen and options.headdotOutlineColor
+    if visible.headdot.Visible then 
+        local headdot = visible.headdot
+        headdot.Color = Color3.new(0.2, 0.2, 0.2)
+        headdot.Radius = 5
+        headdot.Transparency = 0.5
+        headdot.position = (corners.topLeft - corners.topRight)
 
 	hidden.arrow.Visible = enabled and (not onScreen) and options.offScreenArrow;
 	hidden.arrowOutline.Visible = hidden.arrow.Visible and options.offScreenArrowOutline;
@@ -591,6 +601,9 @@ local EspInterface = {
 			chamsVisibleOnly = false,
 			chamsFillColor = { Color3.new(0.2, 0.2, 0.2), 0.5 },
 			chamsOutlineColor = { Color3.new(1,0,0), 0 },
+            headdot = false,
+            headdotFillColor = { Color3.new(0.2, 0.2, 0.2), 0.5 },
+            headdotOutlineColor = { Color3.new(1,0,0), 0 }
 		},
 		friendly = {
 			enabled = false,
@@ -637,7 +650,9 @@ local EspInterface = {
 			chams = false,
 			chamsVisibleOnly = false,
 			chamsFillColor = { Color3.new(0.2, 0.2, 0.2), 0.5 },
-			chamsOutlineColor = { Color3.new(0,1,0), 0 }
+			chamsOutlineColor = { Color3.new(0,1,0), 0 },
+            headdotFillColor = { Color3.new(0.2, 0.2, 0.2), 0.5 },
+            headdotOutlineColor = { Color3.new(1,0,0), 0 }
 		}
 	}
 };
